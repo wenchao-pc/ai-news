@@ -57,8 +57,16 @@ python3 scripts/collect.py > output/raw_DATE_TIME.json 2>output/collect_err.log
 - GitHub = `repo` 完整路径；HuggingFace = `name` 完整路径（照抄 raw 字段即可）
 - HN / PH / TM / Reddit = **原标题里实际存在的稳定子串**（20-40 字符）。不要凭语义拼 key；
   避开 `Sources:`、`:` 开头等可变前缀；多个候选时选最独特的
-- 每条三字段：`title`（中文标题）、`desc`（中文描述）、`comment`（一句中文点评）
+- 每条三字段：`title`（中文标题）、`desc`（中文描述）、`comment`（中文点评）
 - **中文一律半角标点、不含 emoji**（json_to_xml 发布时统一转全角并注入 emoji）
+
+**内容质量规范（desc/comment 不要只写一句话）**：
+- `desc`（80-200 字）：不是直译原始 description，而是**扩展性介绍**——基于 raw 里的 description、
+  topics、language、stars 趋势等字段，结合你对这个项目的了解，讲清它是什么、解决什么问题、
+  核心特性/技术栈。原始 description 只是一句话简介，直接翻译必然干瘪
+- `comment`（60-150 字）：不只是点评，要有信息增量——为什么值得关注、适合谁、与同类项目的
+  差异、star 增长含义、生态位等。禁止空泛套话（"值得关注的项目"、"值得尝试"）
+- 写之前先看该条目的**全部字段**（不只 title/description），素材越多写得越实
 
 建议做法：写一个临时 Python 脚本一次性生成 translations.json（比 heredoc 稳定），
 脚本里把要翻的标题 print 出来对着写 key，不要凭记忆。
